@@ -15,7 +15,7 @@ Vue.component('product', {
 
     <div class="product-info">
         <h1>{{ title }}</h1>
-        <p>{{ productOnSale }}</p>
+        
         <p v-if="inStock">In Stock</p>
         <p v-else
         :class="{outOfStock:!inStock}">Out of Stock
@@ -44,9 +44,7 @@ Vue.component('product', {
         :class="{disabledButton:!inStock}">
             Add to Cart
         </button>
-        <div class="cart">
-            <p>Cart({{cart}})</p>
-        </div>
+      
     </div>
  
 
@@ -60,7 +58,7 @@ Vue.component('product', {
             //0 como punto de partida del index ¿?
             details: ["80% cotton", "20% polyester", "Gender-neutral"],
 
-            onSale: false,
+            
             variants: [
                 {
                     variantId: 2243,
@@ -75,12 +73,12 @@ Vue.component('product', {
                     variantQuantity: 0
                 }
             ],
-            cart: 0
+            
         }
     },
     methods: {
         addToCart() {
-            this.cart += 1
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
         updateProduct(index) {
             this.selectedVariant = index
@@ -97,13 +95,7 @@ Vue.component('product', {
         inStock() {
             return this.variants[this.selectedVariant].variantQuantity
         },
-        productOnSale() {
-            if (this.onSale === true) {
-                return this.brand + ' ' + this.product + ' are on sale!'
-            } else {
-                return this.brand + ' ' + this.product + ' are sold out!'
-            }
-        },
+        
         shipping() {
             if (this.premium) {
                 return "Free"
@@ -120,7 +112,13 @@ Vue.component('product', {
 var app = new Vue({
     el: '#app',
     data: {
-        premium: false
+        premium: false,
+        cart: []
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id)
+        }
     }
 })
 
