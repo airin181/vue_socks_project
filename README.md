@@ -1,6 +1,9 @@
 # Vue Socks Project
 
-Simple project about a socks store to get start with Vue.js framework.
+This is a project and consists in a socks online shop. Build to get start with Vue.js framework.
+
+**https://airin181.github.io/vue_socks_project/**
+
 
 ## Description
 
